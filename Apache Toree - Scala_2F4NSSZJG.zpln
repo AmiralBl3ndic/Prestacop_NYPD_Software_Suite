@@ -1,0 +1,563 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n# Functional Data Programming Project - PrestaCop\n\n## Subject\n\n### Client\n\nPrestaCop, a company specializing in service delivery for police forces, wants to create a drone service to help police systems make parking tickets.\n\nA camera with a pattern recognition software identifies license plates and characterizes infractions.\n\nPrestaCop has teams to develop the drone and does work. The first prototype is finished it can qualify some infraction. However Prestacop service comes with a software as service offer that PrestaCop struggle to create.\n\n### Drone description\n\nEach drone send message regularly, each standard message contains : drone location, time, drone id.\n\nIn the event of a violation, the drone sends separately:\n\n- 1 image\n- a standard message with additional field : a violation code describing the nature of the offense, image id\n\nA human operator can take control of any drone at any time. Taking control of the drone is done through an already existing software using the drone id.\n\nIn doing so the employee is free to observe vehicles from any angle while driving the drone.\n\n### Alert\n\nWhen the drone can not qualify a possible offense with accuracy, its message’s violation code indicate it requires human intervention.\n\nIf this happen a operator (probably a NYPD officer) using the remote control feature described below  understand the situation and may send a new message with the right violation code.  (Example a police officer will take control of the drone in order to read a car’s plate that the drone can’t read).\n\nAfter a few tests performed prestacop estimates that this represents 1% of observed violations.\n\n\n### Statistics\n\nPrestaCop is convinced that we need to keep every drone’s messages in order to make statistics and improve their services. But they still don’t know what kindof question/statistic they will want to address.\n\n### Initial feed\n\nPrestaCop has forged a partnership with the New York police to retrieve the history of their tickets data. They want to use NYPD historical data to improvethose statistics thus they want to transform it to its equivalent drone data to feed their information system. This historical data is existing data on tickets previously written by NYPD (without Prestacop’s system).\n\nNYPD poses 2 constraints: its computers are old and not very powerful, [This history is stored in a large CSV that you can find here.](https://www.kaggle.com/new-york-city/nyc-parking-tickets#Parking_Violations_Issued_-_Fiscal_Year_2015.csv)\n\n### Failed attempt\n\nTo create a POC PrestaCop hired a team of data-scientists and Prestacop manager expect this team of data-scientists to provide a program that uses few memory resources and can send to PrestaCop computers (or cloud) NYPD historical data.\n\nDespite all their efforts, PrestaCop\u0027s data teams have not been able to set up a program that is light enough to send them data from New York police computers.",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:16:52.016",
+      "config": {
+        "editorMode": "ace/mode/text",
+        "editorHide": true,
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eFunctional Data Programming Project - PrestaCop\u003c/h1\u003e\n\u003ch2\u003eSubject\u003c/h2\u003e\n\u003ch3\u003eClient\u003c/h3\u003e\n\u003cp\u003ePrestaCop, a company specializing in service delivery for police forces, wants to create a drone service to help police systems make parking tickets.\u003c/p\u003e\n\u003cp\u003eA camera with a pattern recognition software identifies license plates and characterizes infractions.\u003c/p\u003e\n\u003cp\u003ePrestaCop has teams to develop the drone and does work. The first prototype is finished it can qualify some infraction. However Prestacop service comes with a software as service offer that PrestaCop struggle to create.\u003c/p\u003e\n\u003ch3\u003eDrone description\u003c/h3\u003e\n\u003cp\u003eEach drone send message regularly, each standard message contains : drone location, time, drone id.\u003c/p\u003e\n\u003cp\u003eIn the event of a violation, the drone sends separately:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e1 image\u003c/li\u003e\n\u003cli\u003ea standard message with additional field : a violation code describing the nature of the offense, image id\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eA human operator can take control of any drone at any time. Taking control of the drone is done through an already existing software using the drone id.\u003c/p\u003e\n\u003cp\u003eIn doing so the employee is free to observe vehicles from any angle while driving the drone.\u003c/p\u003e\n\u003ch3\u003eAlert\u003c/h3\u003e\n\u003cp\u003eWhen the drone can not qualify a possible offense with accuracy, its message’s violation code indicate it requires human intervention.\u003c/p\u003e\n\u003cp\u003eIf this happen a operator (probably a NYPD officer) using the remote control feature described below  understand the situation and may send a new message with the right violation code.  (Example a police officer will take control of the drone in order to read a car’s plate that the drone can’t read).\u003c/p\u003e\n\u003cp\u003eAfter a few tests performed prestacop estimates that this represents 1% of observed violations.\u003c/p\u003e\n\u003ch3\u003eStatistics\u003c/h3\u003e\n\u003cp\u003ePrestaCop is convinced that we need to keep every drone’s messages in order to make statistics and improve their services. But they still don’t know what kindof question/statistic they will want to address.\u003c/p\u003e\n\u003ch3\u003eInitial feed\u003c/h3\u003e\n\u003cp\u003ePrestaCop has forged a partnership with the New York police to retrieve the history of their tickets data. They want to use NYPD historical data to improvethose statistics thus they want to transform it to its equivalent drone data to feed their information system. This historical data is existing data on tickets previously written by NYPD (without Prestacop’s system).\u003c/p\u003e\n\u003cp\u003eNYPD poses 2 constraints: its computers are old and not very powerful, \u003ca href\u003d\"https://www.kaggle.com/new-york-city/nyc-parking-tickets#Parking_Violations_Issued_-_Fiscal_Year_2015.csv\"\u003eThis history is stored in a large CSV that you can find here.\u003c/a\u003e\u003c/p\u003e\n\u003ch3\u003eFailed attempt\u003c/h3\u003e\n\u003cp\u003eTo create a POC PrestaCop hired a team of data-scientists and Prestacop manager expect this team of data-scientists to provide a program that uses few memory resources and can send to PrestaCop computers (or cloud) NYPD historical data.\u003c/p\u003e\n\u003cp\u003eDespite all their efforts, PrestaCop\u0026rsquo;s data teams have not been able to set up a program that is light enough to send them data from New York police computers.\u003c/p\u003e\n\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460129_-1287460829",
+      "id": "20200405-151059_377107453",
+      "dateCreated": "2020-04-05 15:11:00.129",
+      "dateStarted": "2020-04-05 15:15:28.454",
+      "dateFinished": "2020-04-05 15:15:28.508",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%md\n## Preliminary questions\n\n1. What technical/business constraints should the architecture meet to fulfill the requirement described by the customer in paragraph «Statistics» ? (In other words the customer has express some needs, some existing solutions, it comes with limitations).\n\n2. Same question with the paragraph «Alert»\n\n3. What mistake(s) from Prestacop can explains the failed attempt?\n\n4. Prestacop has likely forgot some technical information in the regular message sent by the drone. In the future this information could help Prestacop make its product much more profitable. Which information?",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:16:52.026",
+      "config": {
+        "editorMode": "ace/mode/text",
+        "editorHide": true,
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003ePreliminary questions\u003c/h2\u003e\n\u003col\u003e\n\u003cli\u003e\n\u003cp\u003eWhat technical/business constraints should the architecture meet to fulfill the requirement described by the customer in paragraph «Statistics» ? (In other words the customer has express some needs, some existing solutions, it comes with limitations).\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003eSame question with the paragraph «Alert»\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003eWhat mistake(s) from Prestacop can explains the failed attempt?\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003ePrestacop has likely forgot some technical information in the regular message sent by the drone. In the future this information could help Prestacop make its product much more profitable. Which information?\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ol\u003e\n\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460133_-1639435601",
+      "id": "20200405-151059_1352181450",
+      "dateCreated": "2020-04-05 15:11:00.133",
+      "dateStarted": "2020-04-05 15:15:28.571",
+      "dateFinished": "2020-04-05 15:15:28.598",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%md\n## Project\n\nPrestaCop understand this is beyond their team limits, it can not put in place an information system to deal with the drone’s data. PrestaCop asks you for advice to design an architecture allowing them to create a product they could sell to different police forces.\n\nIdeally you should also tell PrestaCop how to power this product with NYPD data.\n\n\nIt\u0027s up to you to report and recommend what to do.",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:16:52.031",
+      "config": {
+        "editorMode": "ace/mode/text",
+        "editorHide": true,
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eProject\u003c/h2\u003e\n\u003cp\u003ePrestaCop understand this is beyond their team limits, it can not put in place an information system to deal with the drone’s data. PrestaCop asks you for advice to design an architecture allowing them to create a product they could sell to different police forces.\u003c/p\u003e\n\u003cp\u003eIdeally you should also tell PrestaCop how to power this product with NYPD data.\u003c/p\u003e\n\u003cp\u003eIt\u0026rsquo;s up to you to report and recommend what to do.\u003c/p\u003e\n\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460135_1091635543",
+      "id": "20200405-151059_433513325",
+      "dateCreated": "2020-04-05 15:11:00.135",
+      "dateStarted": "2020-04-05 15:15:28.684",
+      "dateFinished": "2020-04-05 15:15:28.715",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%md\n----------",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:16:52.038",
+      "config": {
+        "editorMode": "ace/mode/text",
+        "editorHide": true,
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003chr /\u003e\n\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460135_251339347",
+      "id": "20200405-151059_1493000625",
+      "dateCreated": "2020-04-05 15:11:00.136",
+      "dateStarted": "2020-04-05 15:15:28.792",
+      "dateFinished": "2020-04-05 15:15:28.822",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%md\n# Preliminary questions - Our answers",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:16:52.049",
+      "config": {
+        "editorMode": "ace/mode/text",
+        "editorHide": true,
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003ePreliminary questions - Our answers\u003c/h1\u003e\n\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460136_-669789427",
+      "id": "20200405-151059_906299499",
+      "dateCreated": "2020-04-05 15:11:00.136",
+      "dateStarted": "2020-04-05 15:15:28.915",
+      "dateFinished": "2020-04-05 15:15:28.941",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%md\n## 1. Technical / Business constraints of the architecture (Statistics)\n\nBecause the drones will be flying and collecting data about parking in New York, so it is reasonable to suppose the amount of data the drones will collect will be rapidly huge.\n\nSince the custommer wants to keep track of the data, we must store it somewhere, for that, and considering the volume of data that we will have to process, a NoSQL database seems to be the best solution because it allows to provide better response times with huge volumes of data.\n\nFor this project, a document-oriented NoSQL database should be sufficient and powerful enough, so MongoDB will be the database of choice, but once again, the volume of data that should be stored without any transformation will quickly become problematic without a distributed storage solution like HDFS or AWS S3 to back it up.\n\nNow, we have another problem: we will have dozens of drones sending data at regular intervals, probably at the same time, so we will have multiple producers and we will also have multiple consumers: an analysis program which should dispatch incoming requests for human assistance and another one that will simply write new records from the drones to the database. For the drone navigation data, another program will consume data to gather all data from drones at any time and as soon as it is emitted.\n\nThis producer/consumer problem will be easy to solve with Kafka streams: a stream into which valid signals from the drones will be sent by the drones and gathered by analysis programs and database writing program, another one into which navigation data will be sent by the drones and gathered by a central control program and another one for the huuman assistance demands from the drones that will be listened to by multiple instances of the same program which enables its users to take control of drones when needed.\n\nProcessing such volumes of data is a good indicator that we should use functional programming hence Scala will be the language of choice because of its integration with Spark for data processing and analysis as well as Kafka for streaming.\n\nIn addition to that, this solution enables us to setup an easy backup database/storage system because oonly the raw data will be circulating in the streams, so it won\u0027t be complicated to plug another system to write data to another database to the concerned streams: this is a huge benefit because such data should really be backed up.",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:16:52.058",
+      "config": {
+        "editorMode": "ace/mode/text",
+        "editorHide": true,
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003e1. Technical / Business constraints of the architecture (Statistics)\u003c/h2\u003e\n\u003cp\u003eBecause the drones will be flying and collecting data about parking in New York, so it is reasonable to suppose the amount of data the drones will collect will be rapidly huge.\u003c/p\u003e\n\u003cp\u003eSince the custommer wants to keep track of the data, we must store it somewhere, for that, and considering the volume of data that we will have to process, a NoSQL database seems to be the best solution because it allows to provide better response times with huge volumes of data.\u003c/p\u003e\n\u003cp\u003eFor this project, a document-oriented NoSQL database should be sufficient and powerful enough, so MongoDB will be the database of choice, but once again, the volume of data that should be stored without any transformation will quickly become problematic without a distributed storage solution like HDFS or AWS S3 to back it up.\u003c/p\u003e\n\u003cp\u003eNow, we have another problem: we will have dozens of drones sending data at regular intervals, probably at the same time, so we will have multiple producers and we will also have multiple consumers: an analysis program which should dispatch incoming requests for human assistance and another one that will simply write new records from the drones to the database. For the drone navigation data, another program will consume data to gather all data from drones at any time and as soon as it is emitted.\u003c/p\u003e\n\u003cp\u003eThis producer/consumer problem will be easy to solve with Kafka streams: a stream into which valid signals from the drones will be sent by the drones and gathered by analysis programs and database writing program, another one into which navigation data will be sent by the drones and gathered by a central control program and another one for the huuman assistance demands from the drones that will be listened to by multiple instances of the same program which enables its users to take control of drones when needed.\u003c/p\u003e\n\u003cp\u003eProcessing such volumes of data is a good indicator that we should use functional programming hence Scala will be the language of choice because of its integration with Spark for data processing and analysis as well as Kafka for streaming.\u003c/p\u003e\n\u003cp\u003eIn addition to that, this solution enables us to setup an easy backup database/storage system because oonly the raw data will be circulating in the streams, so it won\u0026rsquo;t be complicated to plug another system to write data to another database to the concerned streams: this is a huge benefit because such data should really be backed up.\u003c/p\u003e\n\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460136_1460597553",
+      "id": "20200405-151059_980047743",
+      "dateCreated": "2020-04-05 15:11:00.136",
+      "dateStarted": "2020-04-05 15:15:29.021",
+      "dateFinished": "2020-04-05 15:15:29.043",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%md\n## 2. Technical / Business constraints of the architecture (Alert)\n\nAs explained in the previous answer, we need multiple streams and multiple programs to recognize and handle events of different natures. Considering that a drone \"knows\" when it needs human assistance, sending an event into a Kafka stream with the data required to connect to it and awaiting for an operator to take control might be sufficient: the architecture described above seems to be quite good.",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:16:52.066",
+      "config": {
+        "editorMode": "ace/mode/text",
+        "editorHide": true,
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003e2. Technical / Business constraints of the architecture (Alert)\u003c/h2\u003e\n\u003cp\u003eAs explained in the previous answer, we need multiple streams and multiple programs to recognize and handle events of different natures. Considering that a drone \u0026ldquo;knows\u0026rdquo; when it needs human assistance, sending an event into a Kafka stream with the data required to connect to it and awaiting for an operator to take control might be sufficient: the architecture described above seems to be quite good.\u003c/p\u003e\n\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460137_568183620",
+      "id": "20200405-151100_1121659315",
+      "dateCreated": "2020-04-05 15:11:00.137",
+      "dateStarted": "2020-04-05 15:15:29.139",
+      "dateFinished": "2020-04-05 15:15:29.161",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%md\n## 3. Mistakes PrestaCop made\n\nHandling huge amount of data is not really problematic, but it is always better to know what you want to do with the data so we can only store the data we want to keep and use. Taking advantage of existing data is good, but wanting to use too much data on a regular basis will always have a (negative) drawback on performances. Since performances are a concern for PrestaCop and the NYPD, this is what the first mistake is. In addition to that performance issue, it is a no brainer to guess that NYPD computers are not brand new and are not optimized for data analysis because they are not suited to perform heavy computations and make extensive use of bandwidth, this also might explain why PrestaCop failed.",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:16:52.072",
+      "config": {
+        "editorMode": "ace/mode/text",
+        "editorHide": true,
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003e3. Mistakes PrestaCop made\u003c/h2\u003e\n\u003cp\u003eHandling huge amount of data is not really problematic, but it is always better to know what you want to do with the data so we can only store the data we want to keep and use. Taking advantage of existing data is good, but wanting to use too much data on a regular basis will always have a (negative) drawback on performances. Since performances are a concern for PrestaCop and the NYPD, this is what the first mistake is. In addition to that performance issue, it is a no brainer to guess that NYPD computers are not brand new and are not optimized for data analysis because they are not suited to perform heavy computations and make extensive use of bandwidth, this also might explain why PrestaCop failed.\u003c/p\u003e\n\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460137_2120720497",
+      "id": "20200405-151100_1700772574",
+      "dateCreated": "2020-04-05 15:11:00.137",
+      "dateStarted": "2020-04-05 15:15:29.252",
+      "dateFinished": "2020-04-05 15:15:29.266",
+      "status": "FINISHED"
+    },
+    {
+      "text": "%md\n## 4. Technical Information that the drone should send\n\nThe drone does not send its location when reporting an infraction. Sending the location of the drone as well as the time the infraction is detected in addition to the data already sent might be very useful for statistics because the NYPD might be interested in sending more drones to zones where a lot of infractions are detected.",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:16:52.086",
+      "config": {
+        "editorMode": "ace/mode/text",
+        "editorHide": true,
+        "editorSetting": {
+          "language": "text",
+          "editOnDblClick": false
+        },
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003e4. Technical Information that the drone should send\u003c/h2\u003e\n\u003cp\u003eThe drone does not send its location when reporting an infraction. Sending the location of the drone as well as the time the infraction is detected in addition to the data already sent might be very useful for statistics because the NYPD might be interested in sending more drones to zones where a lot of infractions are detected.\u003c/p\u003e\n\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460137_1651821308",
+      "id": "20200405-151100_699988321",
+      "dateCreated": "2020-04-05 15:11:00.138",
+      "dateStarted": "2020-04-05 15:15:29.365",
+      "dateFinished": "2020-04-05 15:15:29.385",
+      "status": "FINISHED"
+    },
+    {
+      "text": "import org.apache.spark.sql.SparkSession",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:17:02.092",
+      "config": {
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionSupport": true,
+          "completionKey": "TAB"
+        },
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.sql.SparkSession\n"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460138_866689993",
+      "id": "20200405-151100_483074652",
+      "dateCreated": "2020-04-05 15:11:00.138",
+      "dateStarted": "2020-04-05 15:15:29.474",
+      "dateFinished": "2020-04-05 15:15:29.959",
+      "status": "FINISHED"
+    },
+    {
+      "text": "val spark \u003d SparkSession.builder.appName(\"SparkTest\").config(\"spark.master\", \"local\").getOrCreate()",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:16:57.969",
+      "config": {
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionSupport": true,
+          "completionKey": "TAB"
+        },
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mspark\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.SparkSession\u001b[0m \u003d org.apache.spark.sql.SparkSession@9495025\n"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460138_-1351765693",
+      "id": "20200405-151100_1032459554",
+      "dateCreated": "2020-04-05 15:11:00.138",
+      "dateStarted": "2020-04-05 15:15:29.984",
+      "dateFinished": "2020-04-05 15:15:30.417",
+      "status": "FINISHED"
+    },
+    {
+      "text": "val raw2014 \u003d spark.read.format(\"csv\").option(\"header\", \"true\").load(\"/notebook/Parking_Violations_Issued_-_Fiscal_Year_2014.csv\")\nval raw2015 \u003d spark.read.format(\"csv\").option(\"header\", \"true\").load(\"/notebook/Parking_Violations_Issued_-_Fiscal_Year_2015.csv\")\nval raw2016 \u003d spark.read.format(\"csv\").option(\"header\", \"true\").load(\"/notebook/Parking_Violations_Issued_-_Fiscal_Year_2016.csv\")\nval raw2017 \u003d spark.read.format(\"csv\").option(\"header\", \"true\").load(\"/notebook/Parking_Violations_Issued_-_Fiscal_Year_2017.csv\")",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:20:01.344",
+      "config": {
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionSupport": true,
+          "completionKey": "TAB"
+        },
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mraw2014\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: string, Plate ID: string ... 49 more fields]\n\u001b[1m\u001b[34mraw2015\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: string, Plate ID: string ... 49 more fields]\n\u001b[1m\u001b[34mraw2016\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: string, Plate ID: string ... 49 more fields]\n\u001b[1m\u001b[34mraw2017\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: string, Plate ID: string ... 41 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460138_1797836223",
+      "id": "20200405-151100_725574734",
+      "dateCreated": "2020-04-05 15:11:00.138",
+      "dateStarted": "2020-04-05 15:20:01.350",
+      "dateFinished": "2020-04-05 15:20:04.302",
+      "status": "FINISHED"
+    },
+    {
+      "text": "raw2014.select(\"Plate ID\").count() + raw2015.select(\"Plate ID\").count() + raw2016.select(\"Plate ID\").count() + raw2017.select(\"Plate ID\").count()",
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:20:53.349",
+      "config": {
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionSupport": true,
+          "completionKey": "TAB"
+        },
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u001b[1m\u001b[34mres3\u001b[0m: \u001b[1m\u001b[32mLong\u001b[0m \u003d 42339438\n"
+          }
+        ]
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099460139_-590436743",
+      "id": "20200405-151100_1879483861",
+      "dateCreated": "2020-04-05 15:11:00.139",
+      "dateStarted": "2020-04-05 15:20:53.357",
+      "dateFinished": "2020-04-05 15:22:04.886",
+      "status": "FINISHED"
+    },
+    {
+      "user": "anonymous",
+      "dateUpdated": "2020-04-05 15:16:52.110",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1586099634864_263808358",
+      "id": "paragraph_1586099634864_263808358",
+      "dateCreated": "2020-04-05 15:13:54.864",
+      "status": "READY"
+    }
+  ],
+  "name": "Apache Toree - Scala",
+  "id": "2F4NSSZJG",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.9.0-preview1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {
+    "isRunning": false
+  }
+}
