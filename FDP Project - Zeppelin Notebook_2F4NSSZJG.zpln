@@ -276,7 +276,7 @@
     {
       "text": "%md\n## 3. Mistakes PrestaCop made\n\nHandling huge amount of data is not really problematic, but it is always better to know what you want to do with the data so we can only store the data we want to keep and use. Taking advantage of existing data is good, but wanting to use too much data on a regular basis will always have a (negative) drawback on performances. Since performances are a concern for PrestaCop and the NYPD, this is what the first mistake is. In addition to that performance issue, it is a no brainer to guess that NYPD computers are not brand new and are not optimized for data analysis because they are not suited to perform heavy computations and make extensive use of bandwidth, this also might explain why PrestaCop failed.",
       "user": "anonymous",
-      "dateUpdated": "2020-04-05 15:16:52.072",
+      "dateUpdated": "2020-04-05 15:47:38.652",
       "config": {
         "editorMode": "ace/mode/text",
         "editorHide": true,
@@ -308,8 +308,8 @@
       "jobName": "paragraph_1586099460137_2120720497",
       "id": "20200405-151100_1700772574",
       "dateCreated": "2020-04-05 15:11:00.137",
-      "dateStarted": "2020-04-05 15:15:29.252",
-      "dateFinished": "2020-04-05 15:15:29.266",
+      "dateStarted": "2020-04-05 15:47:36.726",
+      "dateFinished": "2020-04-05 15:47:36.752",
       "status": "FINISHED"
     },
     {
@@ -436,7 +436,7 @@
     {
       "text": "val raw2014 \u003d spark.read.format(\"csv\").option(\"header\", \"true\").load(\"/notebook/Parking_Violations_Issued_-_Fiscal_Year_2014.csv\")\nval raw2015 \u003d spark.read.format(\"csv\").option(\"header\", \"true\").load(\"/notebook/Parking_Violations_Issued_-_Fiscal_Year_2015.csv\")\nval raw2016 \u003d spark.read.format(\"csv\").option(\"header\", \"true\").load(\"/notebook/Parking_Violations_Issued_-_Fiscal_Year_2016.csv\")\nval raw2017 \u003d spark.read.format(\"csv\").option(\"header\", \"true\").load(\"/notebook/Parking_Violations_Issued_-_Fiscal_Year_2017.csv\")",
       "user": "anonymous",
-      "dateUpdated": "2020-04-05 15:20:01.344",
+      "dateUpdated": "2020-04-05 15:54:13.318",
       "config": {
         "editorMode": "ace/mode/scala",
         "editorHide": false,
@@ -461,7 +461,7 @@
         "msg": [
           {
             "type": "TEXT",
-            "data": "\u001b[1m\u001b[34mraw2014\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: string, Plate ID: string ... 49 more fields]\n\u001b[1m\u001b[34mraw2015\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: string, Plate ID: string ... 49 more fields]\n\u001b[1m\u001b[34mraw2016\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: string, Plate ID: string ... 49 more fields]\n\u001b[1m\u001b[34mraw2017\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: string, Plate ID: string ... 41 more fields]\n"
+            "data": "\u001b[1m\u001b[34mraw2014\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: bigint, Plate ID: string ... 49 more fields]\n\u001b[1m\u001b[34mraw2015\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: string, Plate ID: string ... 49 more fields]\n\u001b[1m\u001b[34mraw2016\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: string, Plate ID: string ... 49 more fields]\n\u001b[1m\u001b[34mraw2017\u001b[0m: \u001b[1m\u001b[32morg.apache.spark.sql.DataFrame\u001b[0m \u003d [Summons Number: string, Plate ID: string ... 41 more fields]\n"
           }
         ]
       },
@@ -470,8 +470,8 @@
       "jobName": "paragraph_1586099460138_1797836223",
       "id": "20200405-151100_725574734",
       "dateCreated": "2020-04-05 15:11:00.138",
-      "dateStarted": "2020-04-05 15:20:01.350",
-      "dateFinished": "2020-04-05 15:20:04.302",
+      "dateStarted": "2020-04-05 15:50:19.284",
+      "dateFinished": "2020-04-05 15:52:50.856",
       "status": "FINISHED"
     },
     {
@@ -545,7 +545,7 @@
       "status": "READY"
     }
   ],
-  "name": "Apache Toree - Scala",
+  "name": "FDP Project - Zeppelin Notebook",
   "id": "2F4NSSZJG",
   "defaultInterpreterGroup": "spark",
   "version": "0.9.0-preview1",
