@@ -3,18 +3,20 @@ import java.util.concurrent._
 
 object DroneProgram extends App with KafkaProducerTrait with DroneLocationProducerRecordTrait {
   val timer = new ScheduledThreadPoolExecutor(1)
-  val durationBetweenMessages = 60L  // Send a message by minute
+  val durationBetweenMessages = 30L  // Send two messages by minute
 
   // Make drone send updates to
   val scheduledLocationTask = timer.scheduleAtFixedRate(
     sendLocationTask,
-    5,
+    2,
     durationBetweenMessages,
     TimeUnit.SECONDS)
 
+  // Simulate drone having a location before takeoff
+  location.updateRandom()
 
   while (true) {
-    Thread.sleep(1000)  // Wait 1 second
-    updateLocation()  // Simulate drone motion
+    Thread.sleep(5000)  // Wait 5 seconds
+    location.updateRandom()  // Simulate drone motion
   }
 }

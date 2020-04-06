@@ -5,7 +5,7 @@ import org.apache.kafka.clients.producer._
  * Wrapper around a Kafka producer following the Singleton design pattern
  */
 trait KafkaProducerTrait {
-  val bootstrapServers = "localhost:9092"
+  val bootstrapServers = "163.172.191.74:9092"
   val keySerializer = "org.apache.kafka.common.serialization.StringSerializer"
   val valueSerializer = "org.apache.kafka.common.serialization.StringSerializer"
 
