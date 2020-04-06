@@ -2,7 +2,7 @@ package location
 
 import scala.util.Random
 
-class Location {
+class Location extends Serializable {
   private val NYC_WEST_LONGITUDE = -74.257159
   private val NYC_EAST_LONGITUDE = -73.699215
   private val NYC_NORTH_LATITUDE = 40.915568

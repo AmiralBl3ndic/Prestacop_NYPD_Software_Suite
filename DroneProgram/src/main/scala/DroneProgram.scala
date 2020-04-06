@@ -1,5 +1,7 @@
 import java.util.concurrent._
 
+import location.{LocationDeserializer, LocationSerializer}
+
 
 object DroneProgram extends App with KafkaProducerTrait with DroneLocationProducerRecordTrait {
   val timer = new ScheduledThreadPoolExecutor(1)
@@ -14,6 +16,12 @@ object DroneProgram extends App with KafkaProducerTrait with DroneLocationProduc
 
   // Simulate drone having a location before takeoff
   location.updateRandom()
+
+  println(s"${location.latitude} ${location.longitude}")
+  val locationBytes = new LocationSerializer().serialize("", location)
+  println(locationBytes)
+  val deserializedLocation = new LocationDeserializer().deserialize("", locationBytes)
+  println(s"${deserializedLocation.latitude} ${deserializedLocation.longitude}")
 
   while (true) {
     Thread.sleep(5000)  // Wait 5 seconds
