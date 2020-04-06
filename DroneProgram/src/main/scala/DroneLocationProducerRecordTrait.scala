@@ -1,3 +1,4 @@
+import location.LocationTrait
 import org.apache.kafka.clients.producer.ProducerRecord
 
 trait DroneLocationProducerRecordTrait extends KafkaProducerTrait with LocationTrait {

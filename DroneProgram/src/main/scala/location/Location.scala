@@ -1,3 +1,5 @@
+package location
+
 import scala.util.Random
 
 class Location {
