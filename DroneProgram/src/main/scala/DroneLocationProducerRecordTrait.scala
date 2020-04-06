@@ -1,4 +1,4 @@
-import location.LocationTrait
+import location.{Location, LocationTrait}
 import org.apache.kafka.clients.producer.ProducerRecord
 
 trait DroneLocationProducerRecordTrait extends KafkaProducerTrait with LocationTrait {
@@ -6,16 +6,17 @@ trait DroneLocationProducerRecordTrait extends KafkaProducerTrait with LocationT
 
   val topicName = "NYPD_DRONE_UPDATE"
 
-  def producerRecord(): ProducerRecord[String, String] = {
-    new ProducerRecord[String, String](
+  def producerRecord(): ProducerRecord[Integer, Location] = {
+    new ProducerRecord[Integer, Location](
       topicName,
-      s"[#$droneId] (Lat=${location.latitude}, Lon=${location.longitude})"
+      droneId,
+      location
     )
   }
 
   val sendLocationTask: Runnable = new Runnable {
     def run(): Unit = {
-      producer.send(producerRecord())
+      locationProducer.send(producerRecord())
       println(s"[#$droneId] (Lat=${location.latitude}, Lon=${location.longitude})")  // To test
     }
   }
