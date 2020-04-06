@@ -6,11 +6,11 @@ trait DroneLocationProducerRecordTrait extends KafkaProducerTrait with LocationT
 
   val topicName = "NYPD_DRONE_UPDATE"
 
-  def producerRecord(): ProducerRecord[Integer, Location] = {
-    new ProducerRecord[Integer, Location](
+  def producerRecord(): ProducerRecord[Integer, DroneData] = {
+    new ProducerRecord[Integer, DroneData](
       topicName,
       droneId,
-      location
+      new DroneData(location)
     )
   }
 

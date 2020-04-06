@@ -1,7 +1,6 @@
 import java.util.Properties
 import org.apache.kafka.clients.producer._
 
-import location.Location
 
 /**
  * Wrapper around a Kafka producer following the Singleton design pattern
@@ -9,15 +8,15 @@ import location.Location
 trait KafkaProducerTrait {
   val bootstrapServers = "163.172.191.74:9092"
   val keySerializer = "org.apache.kafka.common.serialization.IntegerSerializer"
-  val valueSerializer = "location.LocationSerializer"
+  val valueSerializer = "serialization.GenericSerializer"
 
-  var locationProducerInstance: KafkaProducer[Integer, Location] = _
+  var locationProducerInstance: KafkaProducer[Integer, DroneData] = _
 
   /**
    * Get the a `KafkaProducer[String, String]` following Singleton design pattern
    * @return Instance of `KafkaProducer[String, String]`
    */
-  val locationProducer: KafkaProducer[Integer, Location] = {
+  val locationProducer: KafkaProducer[Integer, DroneData] = {
     if (locationProducerInstance != null) {
       locationProducerInstance
     } else {
@@ -25,7 +24,7 @@ trait KafkaProducerTrait {
       props.put("bootstrap.servers", bootstrapServers)
       props.put("key.serializer", keySerializer)
       props.put("value.serializer", valueSerializer)
-      this.locationProducerInstance = new KafkaProducer[Integer, Location](props)
+      this.locationProducerInstance = new KafkaProducer[Integer, DroneData](props)
       locationProducerInstance
     }
   }
