@@ -1,8 +1,5 @@
 import java.util.concurrent._
 
-import location.{LocationDeserializer, LocationSerializer}
-
-
 object DroneProgram extends App with KafkaProducerTrait with DroneLocationProducerRecordTrait {
   val timer = new ScheduledThreadPoolExecutor(1)
   val durationBetweenMessages = 30L  // Send two messages by minute
