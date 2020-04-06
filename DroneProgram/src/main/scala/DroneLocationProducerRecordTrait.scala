@@ -4,7 +4,7 @@ import org.apache.kafka.clients.producer.ProducerRecord
 trait DroneLocationProducerRecordTrait extends KafkaProducerTrait with LocationTrait {
   val droneId: Int = new scala.util.Random().between(0, 9999999);
 
-  val topicName = "NYPD_DRONE_UPDATE"
+  val topicName = "NYPD_DRONE_LOCATION_UPDATE"
 
   def producerRecord(): ProducerRecord[Integer, DroneData] = {
     new ProducerRecord[Integer, DroneData](

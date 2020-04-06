@@ -1,4 +1,5 @@
 name := "DroneProgram"
+organization := "PrestaCop"
 
 version := "0.1"
 
