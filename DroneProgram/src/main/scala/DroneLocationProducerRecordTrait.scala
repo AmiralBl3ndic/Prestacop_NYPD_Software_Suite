@@ -14,10 +14,8 @@ trait DroneLocationProducerRecordTrait extends KafkaProducerTrait with LocationT
     )
   }
 
-  val sendLocationTask: Runnable = new Runnable {
-    def run(): Unit = {
-      locationProducer.send(producerRecord())
-      println(s"[#$droneId] (Lat=${location.latitude}, Lon=${location.longitude})")  // To test
-    }
+  val sendLocationTask: Runnable = () => {
+    locationProducer.send(producerRecord())
+    println(s"[#$droneId] (Lat=${location.latitude}, Lon=${location.longitude})") // To test
   }
 }
