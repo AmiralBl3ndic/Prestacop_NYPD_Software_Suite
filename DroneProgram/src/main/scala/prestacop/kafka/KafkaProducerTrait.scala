@@ -9,9 +9,14 @@ import prestacop.DroneData
  * Wrapper around a Kafka producer following the Singleton design pattern
  */
 trait KafkaProducerTrait {
-  val bootstrapServers = "163.172.191.74:9092"
-  val keySerializer = "org.apache.kafka.common.prestacop.serialization.IntegerSerializer"
-  val valueSerializer = "prestacop.prestacop.serialization.GenericSerializer"
+  private val bootstrapServers = "163.172.191.74:9092"
+  private val keySerializer = "org.apache.kafka.common.serialization.IntegerSerializer"
+  private val valueSerializer = "prestacop.serialization.GenericSerializer"
+
+  private val props = new Properties()
+  props.put("bootstrap.servers", bootstrapServers)
+  props.put("key.serializer", keySerializer)
+  props.put("value.serializer", valueSerializer)
 
   var locationProducerInstance: KafkaProducer[Integer, DroneData] = _
 
@@ -23,10 +28,6 @@ trait KafkaProducerTrait {
     if (locationProducerInstance != null) {
       locationProducerInstance
     } else {
-      val props = new Properties()
-      props.put("bootstrap.servers", bootstrapServers)
-      props.put("key.serializer", keySerializer)
-      props.put("value.serializer", valueSerializer)
       this.locationProducerInstance = new KafkaProducer[Integer, DroneData](props)
       locationProducerInstance
     }
