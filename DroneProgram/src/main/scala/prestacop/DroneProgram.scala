@@ -28,11 +28,11 @@ object DroneProgram extends App
   location.updateRandom()
 
   while (true) {
-    Thread.sleep(100)  // Wait 5 seconds
+    Thread.sleep(5000)  // Wait 5 seconds
     location.updateRandom()  // Simulate drone motion
 
     random.between(.0, 1.0) match {
-      case i if i >= .9 => {
+      case i if i <= .1 => {  // 10% chances to detect an infraction
         // Simulate potential need for human assistance
         random.between(0, 100) match {
           // Infraction that requires human assistance is detected
