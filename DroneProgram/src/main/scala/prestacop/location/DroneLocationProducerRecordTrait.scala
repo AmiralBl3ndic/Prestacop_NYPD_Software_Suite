@@ -1,15 +1,13 @@
 package prestacop.location
 
 import org.apache.kafka.clients.producer.ProducerRecord
-import prestacop.DroneData
+import prestacop.{DroneData, DroneTrait}
 import prestacop.kafka.KafkaProducerTrait
 
-trait DroneLocationProducerRecordTrait extends KafkaProducerTrait with LocationTrait {
-  private val droneId: Int = new scala.util.Random().between(0, 9999999);
-
+trait DroneLocationProducerRecordTrait extends KafkaProducerTrait with DroneTrait with LocationTrait {
   private val topicName = "NYPD_DRONE_LOCATION_UPDATE"
 
-  def producerRecord: ProducerRecord[Integer, DroneData] = {
+  private def getProducerRecord: ProducerRecord[Integer, DroneData] = {
     new ProducerRecord[Integer, DroneData](
       topicName,
       droneId,
@@ -18,7 +16,7 @@ trait DroneLocationProducerRecordTrait extends KafkaProducerTrait with LocationT
   }
 
   val sendLocationTask: Runnable = () => {
-    locationProducer.send(producerRecord)
-    println(s"[NYPD_DRONE_LOCATION_UPDATE] Sent (Lat=${location.latitude}, Lon=${location.longitude}) with drone #$droneId") // To test
+    locationProducer.send(getProducerRecord)
+    println(s"[$topicName] [Drone #$droneId] Sent (Lat=${location.latitude}, Lon=${location.longitude})")
   }
 }

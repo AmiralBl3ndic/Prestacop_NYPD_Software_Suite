@@ -2,7 +2,7 @@ package prestacop
 
 import java.util.concurrent.{ScheduledThreadPoolExecutor, TimeUnit}
 
-import prestacop.infraction.{Infraction, InfractionImageProducerRecordTrait, InfractionProducerRecordTrait}
+import prestacop.infraction.{HumanAssistanceProducerRecordTrait, Infraction, InfractionImageProducerRecordTrait, InfractionProducerRecordTrait}
 import prestacop.location.DroneLocationProducerRecordTrait
 
 import scala.util.Random
@@ -10,7 +10,8 @@ import scala.util.Random
 object DroneProgram extends App
   with DroneLocationProducerRecordTrait
   with InfractionImageProducerRecordTrait
-  with InfractionProducerRecordTrait {
+  with InfractionProducerRecordTrait
+  with HumanAssistanceProducerRecordTrait {
 
   val random = new Random()
   val timer = new ScheduledThreadPoolExecutor(1)
@@ -39,12 +40,14 @@ object DroneProgram extends App
             val infraction = new Infraction()
 
             sendInfractionImage(infraction.image)
+            sendHumanAssistanceRequest(infraction.imageId)
           }
 
           // Infraction that does not require human assistance is detected
           case _ => {
             val infraction = new Infraction()
 
+            sendInfractionImage(infraction.image)
             sendInfraction(infraction)
           }
         }

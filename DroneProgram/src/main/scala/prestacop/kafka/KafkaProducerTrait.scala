@@ -21,7 +21,7 @@ trait KafkaProducerTrait {
 
   private var infractionProducerInstance: KafkaProducer[String, Infraction] = _
 
-  private var humanAssistanceProducerInstance: KafkaProducer[String, Int] = _
+  private var humanAssistanceProducerInstance: KafkaProducer[String, Integer] = _
 
   /**
    * Get the a `KafkaProducer[Integer, DroneData]` following Singleton design pattern
@@ -60,6 +60,18 @@ trait KafkaProducerTrait {
         infractionProducerInstance
       }
       case _ => infractionProducerInstance
+    }
+  }
+
+  def humanAssistanceProducer: KafkaProducer[String, Integer] = {
+    humanAssistanceProducerInstance match {
+      case null => {
+        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
+        props.put("value.serializer", "org.apache.kafka.common.serialization.IntegerSerializer")
+        humanAssistanceProducerInstance = new KafkaProducer[String, Integer](props)
+        humanAssistanceProducerInstance
+      }
+      case _ => humanAssistanceProducerInstance
     }
   }
 }
