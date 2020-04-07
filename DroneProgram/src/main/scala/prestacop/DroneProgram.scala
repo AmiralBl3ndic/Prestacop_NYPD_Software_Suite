@@ -40,8 +40,6 @@ object DroneProgram extends App with DroneLocationProducerRecordTrait {
           // Infraction that does not require human assistance is detected
           case _ => {
             val infraction = new Infraction()
-            infraction.generateRandomCode()
-            infraction.generateRandomImage()
 
             println(s"Sending image ${infraction.imageId} with infraction code ${infraction.code}")
           }
