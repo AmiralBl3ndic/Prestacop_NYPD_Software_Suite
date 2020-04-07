@@ -1,5 +1,8 @@
-import location.{Location, LocationTrait}
+package prestacop.location
+
 import org.apache.kafka.clients.producer.ProducerRecord
+import prestacop.DroneData
+import prestacop.kafka.KafkaProducerTrait
 
 trait DroneLocationProducerRecordTrait extends KafkaProducerTrait with LocationTrait {
   val droneId: Int = new scala.util.Random().between(0, 9999999);

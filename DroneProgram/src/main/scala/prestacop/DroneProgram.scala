@@ -1,4 +1,9 @@
-import java.util.concurrent._
+package prestacop
+
+import java.util.concurrent.{ScheduledThreadPoolExecutor, TimeUnit}
+
+import prestacop.kafka.KafkaProducerTrait
+import prestacop.location.DroneLocationProducerRecordTrait
 
 object DroneProgram extends App with KafkaProducerTrait with DroneLocationProducerRecordTrait {
   val timer = new ScheduledThreadPoolExecutor(1)
@@ -11,7 +16,7 @@ object DroneProgram extends App with KafkaProducerTrait with DroneLocationProduc
     durationBetweenMessages,
     TimeUnit.SECONDS)
 
-  // Simulate drone having a location before takeoff
+  // Simulate drone having a prestacop.location before takeoff
   location.updateRandom()
 
   while (true) {

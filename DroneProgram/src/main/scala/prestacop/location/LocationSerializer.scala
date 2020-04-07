@@ -1,4 +1,4 @@
-package location
+package prestacop.location
 
 import java.io.{ByteArrayOutputStream, ObjectOutputStream}
 

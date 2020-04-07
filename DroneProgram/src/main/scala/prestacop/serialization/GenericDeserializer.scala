@@ -1,4 +1,4 @@
-package serialization
+package prestacop.serialization
 
 import java.io.{ByteArrayInputStream, ObjectInputStream}
 

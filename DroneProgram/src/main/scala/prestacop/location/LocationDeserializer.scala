@@ -1,14 +1,14 @@
-package serialization
+package prestacop.location
 
 import java.io.{ByteArrayInputStream, ObjectInputStream}
 
 import org.apache.kafka.common.serialization.Deserializer
 
-class GenericDeserializer[T] extends Deserializer[T] {
-  override def deserialize(topic: String, data: Array[Byte]): T = {
+class LocationDeserializer extends Deserializer[Location] {
+  override def deserialize(topic: String, data: Array[Byte]): Location = {
     val byteIn = new ByteArrayInputStream(data)
     val objIn = new ObjectInputStream(byteIn)
-    val obj = objIn.readObject().asInstanceOf[T]
+    val obj = objIn.readObject().asInstanceOf[Location]
     byteIn.close()
     objIn.close()
     obj

@@ -1,4 +1,4 @@
-package location
+package prestacop.location
 
 import scala.util.Random
 
