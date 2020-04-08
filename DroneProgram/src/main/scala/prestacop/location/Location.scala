@@ -1,5 +1,7 @@
 package prestacop.location
 
+import prestacop.DroneTrait
+
 import scala.util.Random
 
 class Location extends Serializable {

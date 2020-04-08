@@ -27,9 +27,10 @@ object DroneProgram extends App
   // Simulate drone having a prestacop.location before takeoff
   location.updateRandom()
 
-  while (true) {
+  while (battery > 10) {  // Simulate drone stopping after battery dropped under 10%
     Thread.sleep(5000)  // Wait 5 seconds
     location.updateRandom()  // Simulate drone motion
+    battery -= .05  // Simulate battery loss
 
     random.between(0, 10) match {
       case 0 => {  // 10% chances to detect an infraction

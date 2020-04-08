@@ -5,13 +5,13 @@ import prestacop.{DroneData, DroneTrait}
 import prestacop.kafka.KafkaProducerTrait
 
 trait DroneLocationProducerRecordTrait extends KafkaProducerTrait with DroneTrait with LocationTrait {
-  private val topicName = "NYPD_DRONE_LOCATION_UPDATE"
+  private val topicName = "NYPD_DRONE_LOCATION_UPDATE_REPLICA_1"
 
   private def getProducerRecord: ProducerRecord[Integer, DroneData] = {
     new ProducerRecord[Integer, DroneData](
       topicName,
       droneId,
-      new DroneData(location)
+      new DroneData(location, battery)
     )
   }
 
