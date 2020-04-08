@@ -18,6 +18,8 @@ object DronesFleetManager extends App {
   val consumer = new KafkaConsumer[Integer, DroneData](props)
   consumer.subscribe(Collections.singletonList("NYPD_DRONE_LOCATION_UPDATE_REPLICA_1"))
 
+  println("DronesFleetManager started and listening for incoming data")
+
   while (true) {
     val records = consumer.poll(Duration.ofMillis(150))
     records.forEach(droneDataRecord => {

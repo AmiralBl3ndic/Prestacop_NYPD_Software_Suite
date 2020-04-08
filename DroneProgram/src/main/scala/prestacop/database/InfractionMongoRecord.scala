@@ -10,10 +10,10 @@ import org.mongodb.scala.bson.codecs.DEFAULT_CODEC_REGISTRY
 import org.bson.codecs.configuration.CodecRegistries.{fromProviders, fromRegistries}
 import org.bson.codecs.configuration.CodecRegistry
 
-case class InfractionMongoRecord(_id: ObjectId, infractionId: Double, image: Array[Byte], code: Integer)
+case class InfractionMongoRecord(_id: ObjectId, infractionId: String, image: Array[Byte], code: Integer)
 
 object InfractionMongoRecord {
-  def apply(infractionId: Double, code: Integer, image: Array[Byte]): InfractionMongoRecord = new InfractionMongoRecord(new ObjectId(), infractionId, image, code)
+  def apply(infractionId: String, code: Integer, image: Array[Byte]): InfractionMongoRecord = new InfractionMongoRecord(new ObjectId(), infractionId, image, code)
 
   def codecRegistry: CodecRegistry = {
     fromRegistries(
@@ -28,9 +28,6 @@ object InfractionMongoRecord {
    * @param record Record to insert in the database
    */
   def insertOne(collection: MongoCollection[InfractionMongoRecord], record: InfractionMongoRecord): Unit = {
-    Await.result(
-      collection.insertOne(record).toFuture,
-      Duration.Inf
-    )
+    Await.result(collection.insertOne(record).toFuture, Duration.Inf)
   }
 }
