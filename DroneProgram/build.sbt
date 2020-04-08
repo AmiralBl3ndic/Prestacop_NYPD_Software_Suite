@@ -1,4 +1,4 @@
-name := "DroneProgram"
+name := "NYPD Software Suite"
 organization := "PrestaCop"
 
 version := "0.1"
