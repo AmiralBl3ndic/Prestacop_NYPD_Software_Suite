@@ -4,7 +4,7 @@
 		module="fdp_project$sources"
 		revision="0.1.0-SNAPSHOT"
 		status="integration"
-		publication="20200408110751"
+		publication="20200408141552"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>
