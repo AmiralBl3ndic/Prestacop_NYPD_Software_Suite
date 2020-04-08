@@ -29,7 +29,7 @@ object DroneDataConsumer extends App {
       val droneLongitude = recordValue.location.longitude
       val droneBattery = recordValue.battery
 
-      println(s"[$timeStamp] [Drone #$droneId]: 📍 (Lat=$droneLatitude, Lon=$droneLongitude) ⚡️ $droneBattery")
+      println(f"[$timeStamp] [Drone #$droneId]: 📍 (Lat=$droneLatitude, Lon=$droneLongitude) ⚡️ $droneBattery%1.2f")
     })
   }
 }
