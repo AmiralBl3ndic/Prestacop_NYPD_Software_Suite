@@ -1,10 +1,10 @@
 *.csv
 *.zip
-DroneProgram/.idea/
+Prestacop_NYPD_Software_Suite/.idea/
 target/
 project/
 .ipynb_checkpoints/
 .idea/
-DroneProgram/out/
-DroneProgram/project/
-DroneProgram/target/
+Prestacop_NYPD_Software_Suite/out/
+Prestacop_NYPD_Software_Suite/project/
+Prestacop_NYPD_Software_Suite/target/
