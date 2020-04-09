@@ -2,7 +2,7 @@ package prestacop
 
 import java.util.concurrent.{ScheduledThreadPoolExecutor, TimeUnit}
 
-import prestacop.infraction.{HumanAssistanceProducerRecordTrait, Infraction, InfractionImageProducerRecordTrait, InfractionProducerRecordTrait}
+import prestacop.infraction.{DroneInfractionProducerRecordTrait, HumanAssistanceProducerRecordTrait, Infraction, InfractionImageProducerRecordTrait, InfractionProducerRecordTrait}
 import prestacop.location.DroneLocationProducerRecordTrait
 
 import scala.util.Random
@@ -10,7 +10,7 @@ import scala.util.Random
 object DroneProgram extends App
   with DroneLocationProducerRecordTrait
   with InfractionImageProducerRecordTrait
-  with InfractionProducerRecordTrait
+  with DroneInfractionProducerRecordTrait
   with HumanAssistanceProducerRecordTrait {
 
   val random = new Random()

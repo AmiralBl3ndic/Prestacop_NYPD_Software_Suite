@@ -1,15 +1,16 @@
 package prestacop
 
-import java.util.{Collections, Properties}
+import java.util.{Collections, Properties, Scanner}
 import java.time.{Duration, LocalDateTime}
 
 import com.redis._
 import serialization.Parse.Implicits._
 import org.apache.kafka.clients.consumer.KafkaConsumer
+import prestacop.infraction.{Infraction, InfractionProducerRecordTrait}
 import prestacop.serialization.GenericSerializer
 import prestacop.serialization.GenericDeserializer
 
-object HumanAssistanceManager extends App {
+object HumanAssistanceManager extends App with InfractionProducerRecordTrait {
   ////////////////////////////////////////////////////////////////
   //                   CONFIGURATION & SETUP                    //
   ////////////////////////////////////////////////////////////////
@@ -36,6 +37,8 @@ object HumanAssistanceManager extends App {
 
   val Serializer = new GenericSerializer[CachedHumanAssistanceRequest]
   val Deserializer = new GenericDeserializer[CachedHumanAssistanceRequest]
+
+  private val scanner = new Scanner(System.in)
 
   ////////////////////////////////////////////////////////////////
   //                        BUSINESS LOGIC                      //
@@ -101,7 +104,7 @@ object HumanAssistanceManager extends App {
       redisCachedRequests match {
         case Some(serializedListOfRequests) => {
           val validRequests = serializedListOfRequests
-            .filter(_.isDefined)
+            .filter(_.isDefined)  // Should not change anything
             .map(_.get)
             .map((serializedRecord: Array[Byte]) => Deserializer.deserialize("", serializedRecord))
 
@@ -116,6 +119,22 @@ object HumanAssistanceManager extends App {
                   case _ => "s"
                 }
               })
+
+              val request = validRequests.head
+
+              val infraction = new Infraction()
+              infraction.imageId = request.imageId
+              do {
+                println("================================================================================")
+                println(s"Solving assistance request for infraction #${request.imageId}")
+                println(s"(POC: image should be displayed to the operator in a GUI)")
+                print("Enter infraction code: ")
+
+                infraction.code = scanner.nextInt()
+              } while (infraction.code < 0 || infraction.code > 99)
+
+              sendInfraction(infraction)
+              redis.lpop[Array[Byte]]("human_assistance")  // Remove assistance request from cache
             }
           }
         }
@@ -125,7 +144,6 @@ object HumanAssistanceManager extends App {
       case e => println("An error occurred")
       case _ => println("If this line is printed, something or someone fucked up")
     }
-
 
     Thread.sleep(1000) // Wait 1 second
   }
