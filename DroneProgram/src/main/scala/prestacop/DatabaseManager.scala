@@ -3,6 +3,8 @@ package prestacop
 import java.time.Duration
 import java.util.{Collections, Properties}
 
+import com.redis._
+import serialization.Parse.Implicits._
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.mongodb.scala._
 import org.mongodb.scala.bson.ObjectId
@@ -30,6 +32,8 @@ object DatabaseManager extends App {
   props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
   props.put("value.deserializer", "prestacop.serialization.GenericDeserializer")
 
+  val redis = new RedisClient("163.172.191.74", 6379)
+
   val mongoClient = MongoClient(mongoConnectionString)
   val db = mongoClient
     .getDatabase("prestacop")
@@ -43,9 +47,6 @@ object DatabaseManager extends App {
   val kafkaInfractionImagesConsumer = new KafkaConsumer[String, Array[Byte]](props)
   kafkaInfractionImagesConsumer.subscribe(Collections.singletonList(kafkaInfractionImagesTopic))
 
-  var pendingInfractions: ListBuffer[Infraction] = new ListBuffer[Infraction]
-  var pendingImages: ListBuffer[(String, Array[Byte])] = new ListBuffer[(String, Array[Byte])]
-
   println("DatabaseManager started and listening for incoming data")
 
   while (true) {
@@ -57,48 +58,46 @@ object DatabaseManager extends App {
       val infractionId = infraction.key()
       val infractionCode = infraction.value().code
 
-      val imageIndex = pendingImages.map(_._1).indexOf(infractionId)
-      imageIndex match {  // Check if an image exists with given id
-        case -1 => {
-          pendingInfractions += {
-            val inf = new Infraction()
-            inf.code = infractionCode
-            inf.imageId = infractionId
-            inf
-          }
-          println(s"Received infraction #$infractionId but no matching image found yet")
-        }
-        case _ => {
-          val imageTuple = pendingImages(imageIndex)
-          pendingImages -= imageTuple
+      // Attempt to retrieve cached image with same infraction id
+      val redisImage = redis.get[Array[Byte]](s"image:$infractionId")
+      redisImage match {
+        case Some(image) => {  // Cached image found
+          redis.del(s"image:$infractionId")  // Delete cached image
 
-          println(s"Inserting infraction #$infractionId into database")
-          val image = imageTuple._2
-          val record = new InfractionMongoRecord(new ObjectId(), infractionId, image, infractionCode)
-          InfractionMongoRecord.insertOne(dronesInfractionRecordsCollection, record)
+          insertDroneInfractionMongoRecord(infractionId, image, infractionCode)
         }
+        // No cached image found, caching infraction code
+        case None => redis.set(s"infraction:$infractionId", infractionCode)
       }
     })
 
     newInfractionImages.forEach(infractionImageRecord => {
       val infractionId = infractionImageRecord.key()
-      val infractionImage = infractionImageRecord.value()
+      val image = infractionImageRecord.value()
 
-      val infractionIndex = pendingInfractions.map(_.imageId).indexOf(infractionId)
-      infractionIndex match {
-        case -1 => {
-          pendingImages += { (infractionId, infractionImage) }
-          println(s"Received image #$infractionId but no matching infraction found yet")
-        }
-        case _ => {
-          val infraction = pendingInfractions(infractionIndex)
-          pendingInfractions -= infraction
+      // Attempt to retrieve cached infraction with same infraction id
+      val redisInfraction = redis.get[Int](s"infraction:$infractionId")
+      redisInfraction match {
+        case Some(infractionCode) => {  // Cached infraction found
+          redis.del(s"infraction:$infractionId")  // Delete cached infraction
 
-          println(s"Inserting infraction #$infractionId into database")
-          val record = new InfractionMongoRecord(new ObjectId(), infractionId, infractionImage, infraction.code)
-          InfractionMongoRecord.insertOne(dronesInfractionRecordsCollection, record)
+          insertDroneInfractionMongoRecord(infractionId, image, infractionCode)
         }
+        // No cached infraction found, caching image
+        case None => redis.set(s"image:$infractionId", image)
       }
     })
+  }
+
+  /**
+   * Insert a record in the drones_infraction_records collection
+   * @param infractionId Identifier of the infraction
+   * @param image Image of the infraction
+   * @param code Code of the infraction
+   */
+  def insertDroneInfractionMongoRecord(infractionId: String, image: Array[Byte], code: Int): Unit = {
+    println(s"Inserting infraction #$infractionId into database")
+    val record = new InfractionMongoRecord(new ObjectId(), infractionId, image, code)
+    InfractionMongoRecord.insertOne(dronesInfractionRecordsCollection, record)
   }
 }
