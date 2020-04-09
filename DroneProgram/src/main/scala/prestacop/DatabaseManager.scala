@@ -11,8 +11,6 @@ import org.mongodb.scala.bson.ObjectId
 import prestacop.database.InfractionMongoRecord
 import prestacop.infraction.Infraction
 
-import scala.collection.mutable.ListBuffer
-
 
 /**
  * This program manages the database records
