@@ -103,6 +103,7 @@ object HumanAssistanceManager extends App with InfractionProducerRecordTrait {
 
       redisCachedRequests match {
         case Some(serializedListOfRequests) => {
+          redis.lpop[Array[Byte]]("human_assistance")  // Remove first assistance request from cache
           val validRequests = serializedListOfRequests
             .filter(_.isDefined)  // Should not change anything
             .map(_.get)
@@ -134,7 +135,6 @@ object HumanAssistanceManager extends App with InfractionProducerRecordTrait {
               } while (infraction.code < 0 || infraction.code > 99)
 
               sendInfraction(infraction)
-              redis.lpop[Array[Byte]]("human_assistance")  // Remove assistance request from cache
             }
           }
         }
