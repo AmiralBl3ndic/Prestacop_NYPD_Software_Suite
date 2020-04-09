@@ -50,45 +50,49 @@ object HumanAssistanceManager extends App with InfractionProducerRecordTrait {
   val backgroundKafkaStreamsConsumer: Thread = {
     new Thread {
       override def run(): Unit = {
-        while (true) {
-          val newAssistanceRequests = humanAssistanceConsumer.poll(Duration.ofMillis(100))
-          val newInfractionImages = infractionImagesConsumer.poll(Duration.ofMillis(100))
+        try {
+          while (true) {
+            val newAssistanceRequests = humanAssistanceConsumer.poll(Duration.ofMillis(100))
+            val newInfractionImages = infractionImagesConsumer.poll(Duration.ofMillis(100))
 
-          newAssistanceRequests.forEach(assistanceRequest => {
-            val imageId = assistanceRequest.key()
-            val droneId = assistanceRequest.value()
+            newAssistanceRequests.forEach(assistanceRequest => {
+              val imageId = assistanceRequest.key()
+              val droneId = assistanceRequest.value()
 
-            val cachedImage = redis.get[Array[Byte]](s"image:$imageId")
-            cachedImage match {
-              case Some(image) => {
-                redis.del(s"image:$imageId")
+              val cachedImage = redis.get[Array[Byte]](s"image:$imageId")
+              cachedImage match {
+                case Some(image) => {
+                  redis.del(s"image:$imageId")
 
-                val record = CachedHumanAssistanceRequest(droneId, imageId, image)
-                val serializedRecord = Serializer.serialize("", record)
+                  val record = CachedHumanAssistanceRequest(droneId, imageId, image)
+                  val serializedRecord = Serializer.serialize("", record)
 
-                redis.rpush("human_assistance", serializedRecord)
+                  redis.rpush("human_assistance", serializedRecord)
+                }
+                case None => redis.set(s"pending_human_assistance:$imageId", droneId)
               }
-              case None => redis.set(s"pending_human_assistance:$imageId", droneId)
-            }
-          })
+            })
 
-          newInfractionImages.forEach(infractionImage => {
-            val imageId = infractionImage.key()
-            val image = infractionImage.value()
+            newInfractionImages.forEach(infractionImage => {
+              val imageId = infractionImage.key()
+              val image = infractionImage.value()
 
-            val cachedInfraction = redis.get[Int](s"pending_human_assistance:$imageId")
-            cachedInfraction match {
-              case Some(droneId) => {
-                redis.del(s"pending_human_assistance:$imageId")
+              val cachedInfraction = redis.get[Int](s"pending_human_assistance:$imageId")
+              cachedInfraction match {
+                case Some(droneId) => {
+                  redis.del(s"pending_human_assistance:$imageId")
 
-                val record = CachedHumanAssistanceRequest(droneId, imageId, image)
-                val serializedRecord = Serializer.serialize("", record)
+                  val record = CachedHumanAssistanceRequest(droneId, imageId, image)
+                  val serializedRecord = Serializer.serialize("", record)
 
-                redis.rpush("human_assistance", serializedRecord)
+                  redis.rpush("human_assistance", serializedRecord)
+                }
+                case None => redis.set(s"image:$imageId", image)  // This allows to share this cache with other services
               }
-              case None => redis.set(s"image:$imageId", image)  // This allows to share this cache with other services
-            }
-          })
+            })
+          }
+        } catch {
+          case _: Exception =>
         }
       }
     }
@@ -112,7 +116,10 @@ object HumanAssistanceManager extends App with InfractionProducerRecordTrait {
           val requestsCount = validRequests.length
 
           requestsCount match {
-            case 0 =>
+            case 0 => {
+              println(s"[${LocalDateTime.now().toLocalTime}] 0 pending assistance request")
+              Thread.sleep(15000)  // Pause for 15 seconds before attempting new request
+            }
             case _ => {
               println(s"[${LocalDateTime.now().toLocalTime}] $requestsCount pending assistance request" + {
                 requestsCount match {
@@ -141,8 +148,7 @@ object HumanAssistanceManager extends App with InfractionProducerRecordTrait {
         case None => println("Unable to fetch human assistance requests")  // Should never be displayed
       }
     } catch {
-      case e => println("An error occurred")
-      case _ => println("If this line is printed, something or someone fucked up")
+      case _: Throwable => println("An error occurred")
     }
 
     Thread.sleep(1000) // Wait 1 second
