@@ -1,3 +1,7 @@
 *.csv
 *.zip
 DroneProgram/.idea/
+target/
+project/
+.ipynb_checkpoints/
+.idea/
