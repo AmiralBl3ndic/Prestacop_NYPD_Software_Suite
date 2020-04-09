@@ -5,3 +5,6 @@ target/
 project/
 .ipynb_checkpoints/
 .idea/
+DroneProgram/out/
+DroneProgram/project/
+DroneProgram/target/
